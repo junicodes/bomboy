@@ -1,6 +1,8 @@
 import React from 'react'
 import { FaArrowDown } from "@react-icons/all-files/fa/FaArrowDown";
 import { FaArrowUp } from "@react-icons/all-files/fa/FaArrowUp";
+import { MdCancel } from "@react-icons/all-files/md/MdCancel";
+import { FcRating } from "@react-icons/all-files/fc/FcRating";
 import { setItemList, setCurrentSort } from '../../../react-wrapper/redux/slices/itemListSlice';
 import { useAppDispatch } from '../../../hooks/reduxhook'
 import { sortObjectItem } from '../../../helpers/supportFunctions';
@@ -43,14 +45,14 @@ const ItemListTable = ({payload}: any) => {
                     >
                         <div onClick={(e) => handleSort(e, 'name', 'object')} data-testid="name-col" className="flex justify-start space-x-1  cursor-pointer">
                             <span>Name</span>
-                            {payload.itemList.total_count > 0 && payload.current_sort.order === 'asc' && (
+                            {payload.itemList?.items?.length > 0 && payload.current_sort.order === 'asc' && (
                                 <FaArrowDown
                                     title="Click to sort in descending order"
                                     data-testid="name-icon"
                                     className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'name' ? 'text-pink-500': 'text-gray-300'}`}
                                 />
                             )}
-                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'desc' && (
+                            { payload.itemList?.items?.length > 0 && payload.current_sort.order === 'desc' && (
                                 <FaArrowUp
                                     title="Click to sort in ascending order"
                                     data-testid="name-icon"
@@ -65,14 +67,14 @@ const ItemListTable = ({payload}: any) => {
                     >
                         <div onClick={(e) => handleSort(e, 'net', 'number')} data-testid="net-col" className="flex justify-start space-x-1 cursor-pointer">
                             <span>net</span>
-                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'asc'&& (
+                            { payload.itemList?.items?.length > 0 && payload.current_sort.order === 'asc'&& (
                                 <FaArrowDown
                                     title="Click to sort in descending order"
                                     data-testid="net-icon"
                                     className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'net' ? 'text-pink-500': 'text-gray-300'}`}
                                 />
                             )}
-                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'desc' && (
+                            { payload.itemList?.items?.length > 0 && payload.current_sort.order === 'desc' && (
                                 <FaArrowUp
                                 title="Click to sort in ascending order"
                                 data-testid="net-icon"
@@ -87,20 +89,28 @@ const ItemListTable = ({payload}: any) => {
                     >
                         <div onClick={(e) => handleSort(e, 'tax', 'number')} data-testid="tax-col" className="flex justify-start space-x-1 cursor-pointer">
                             <span>Tax</span>
-                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'asc'&& (
+                            { payload.itemList?.items?.length > 0 && payload.current_sort.order === 'asc'&& (
                                 <FaArrowDown
                                     title="Click to sort in descending order"
                                     data-testid="tax-icon"
                                     className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
                                 />
                             )}
-                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'desc' && (
+                            { payload.itemList?.items?.length > 0 && payload.current_sort.order === 'desc' && (
                                 <FaArrowUp
                                 title="Click to sort in ascending order"
                                 data-testid="tax-icon"
                                 className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
                                 />
                             )}
+                        </div>
+                    </th>
+                    <th
+                    scope="col"
+                    className="py-3 px-6 text-sm tracking-wider text-left font-bold uppercase"
+                    >
+                        <div className="flex justify-start space-x-1">
+                            Gross
                         </div>
                     </th>
                     <th scope="col" className="p-4">
@@ -120,21 +130,42 @@ const ItemListTable = ({payload}: any) => {
                             {item.name}
                             </td>
                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap text-left">
-                            {item.net}
+                            {
+                               new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(item.net)
+                            }
                             </td>
                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap text-left">
-                            {item.tax}
+                            {
+                               new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(item.tax)
+                            }
                             </td>
                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap text-left">
-                            {item.gross}
+                            {
+                               new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(Number(item.net) + Number(item.tax))
+                            }
                             </td>
-                            <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                            <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap flex items-center space-x-2">
                             <a
                                 href={item.html_url}
                                 target="__black"
                                 className="text-pink-500 hover:text-pink-700 hover:underline"
                             >
-                                View
+                                <MdCancel
+                                    title="Delete Item"
+                                    data-testid="delete-icon"
+                                    className={`mt-1.5 w-4 h-4 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
+                                />
+                            </a>
+                            <a
+                                href={item.html_url}
+                                target="__black"
+                                className="text-pink-500 hover:text-pink-700 hover:underline"
+                            >
+                                <FcRating
+                                    title="Delete Item"
+                                    data-testid="delete-icon"
+                                    className={`mt-1.5 w-4 h-4 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
+                                />
                             </a>
                             </td>
                         </tr>

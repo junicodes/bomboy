@@ -24,7 +24,7 @@ const ItemList = () => {
 
     return (
         <div data-testid="item-list-component">
-        <ItemListTable payload={userList} />
+            <ItemListTable payload={userList} />
         </div>
     )
 }

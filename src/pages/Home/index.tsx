@@ -23,14 +23,14 @@ const Home = () => {
             It's never too late for a person to recognize that they have potential in themselves."
             heroTextAuthor="Ben Carson"
         />
-      <div className={`${styles.body}`}>
-        <section className="flex justify-between items-center">
+      <div className={`${styles.body} px-20 pt-20`}>
+        <section className="flex justify-between items-center mb-20">
             {/* form component to create pay */}
-            <div>
+            <div className="w-1/2">
               <CreateItem />
             </div>
             {/* overview components */}
-            <div>
+            <div className="w-1/2">
               <Overview />
             </div>
         </section>
