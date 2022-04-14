@@ -1,12 +1,11 @@
 import React from 'react'
 import { FaArrowDown } from "@react-icons/all-files/fa/FaArrowDown";
 import { FaArrowUp } from "@react-icons/all-files/fa/FaArrowUp";
-// import { ResultProps } from '../../Result/Interfaces';
+import { setItemList, setCurrentSort } from '../../../react-wrapper/redux/slices/itemListSlice';
 import { useAppDispatch } from '../../../hooks/reduxhook'
-import { setItemList, setCurrentSort } from "../../../react-wrapper/redux/slices/itemListSlice";
 import { sortObjectItem } from '../../../helpers/supportFunctions';
 
-const Table = ({payload}: any) => {
+const ItemListTable = ({payload}: any) => {
 
     //hook
     const dispatch = useAppDispatch();
@@ -42,28 +41,20 @@ const Table = ({payload}: any) => {
                     scope="col"
                     className="py-3 px-6 text-sm tracking-wider text-left font-bold uppercase"
                     >
-                    <div className="flex justify-start space-x-1">
-                        <span>No</span>
-                    </div>
-                    </th>
-                    <th
-                    scope="col"
-                    className="py-3 px-6 text-sm tracking-wider text-left font-bold uppercase"
-                    >
-                        <div onClick={(e) => handleSort(e, 'id', 'number')} data-testid="id-col" className="flex justify-start space-x-1  cursor-pointer">
-                            <span>Id</span>
-                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'asc' && (
+                        <div onClick={(e) => handleSort(e, 'name', 'object')} data-testid="name-col" className="flex justify-start space-x-1  cursor-pointer">
+                            <span>Name</span>
+                            {payload.itemList.total_count > 0 && payload.current_sort.order === 'asc' && (
                                 <FaArrowDown
                                     title="Click to sort in descending order"
-                                    data-testid="id-icon"
-                                    className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'id' ? 'text-pink-500': 'text-gray-300'}`}
+                                    data-testid="name-icon"
+                                    className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'name' ? 'text-pink-500': 'text-gray-300'}`}
                                 />
                             )}
-                            {payload.itemList.total_count > 0 && payload.current_sort.order === 'desc' && (
+                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'desc' && (
                                 <FaArrowUp
                                     title="Click to sort in ascending order"
-                                    data-testid="id-icon"
-                                    className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'id' ? 'text-pink-500': 'text-gray-300'}`}
+                                    data-testid="name-icon"
+                                    className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'name' ? 'text-pink-500': 'text-gray-300'}`}
                                 />
                             )}
                         </div>
@@ -72,54 +63,48 @@ const Table = ({payload}: any) => {
                     scope="col"
                     className="py-3 px-6 text-sm tracking-wider text-left font-bold uppercase"
                     >
-                    Avatar URL
-                    </th>
-                    <th
-                    scope="col"
-                    className="py-3 px-6 text-sm tracking-wider text-left font-bold uppercase"
-                    >
-                    <div onClick={(e) => handleSort(e, 'login', 'object')} data-testid="login-col" className="flex justify-start space-x-1  cursor-pointer">
-                        <span>Login</span>
-                        {payload.itemList.total_count > 0 && payload.current_sort.order === 'asc' && (
-                            <FaArrowDown
-                                title="Click to sort in descending order"
-                                data-testid="login-icon"
-                                className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'login' ? 'text-pink-500': 'text-gray-300'}`}
-                            />
-                        )}
-                        { payload.itemList.total_count > 0 && payload.current_sort.order === 'desc' && (
-                             <FaArrowUp
+                        <div onClick={(e) => handleSort(e, 'net', 'number')} data-testid="net-col" className="flex justify-start space-x-1 cursor-pointer">
+                            <span>net</span>
+                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'asc'&& (
+                                <FaArrowDown
+                                    title="Click to sort in descending order"
+                                    data-testid="net-icon"
+                                    className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'net' ? 'text-pink-500': 'text-gray-300'}`}
+                                />
+                            )}
+                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'desc' && (
+                                <FaArrowUp
                                 title="Click to sort in ascending order"
-                                data-testid="login-icon"
-                                className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'login' ? 'text-pink-500': 'text-gray-300'}`}
-                             />
-                        )}
-                    </div>
+                                data-testid="net-icon"
+                                className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'net' ? 'text-pink-500': 'text-gray-300'}`}
+                                />
+                            )}
+                        </div>
                     </th>
                     <th
                     scope="col"
                     className="py-3 px-6 text-sm tracking-wider text-left font-bold uppercase"
                     >
-                    <div onClick={(e) => handleSort(e, 'type', 'object')} data-testid="type-col" className="flex justify-start space-x-1 cursor-pointer">
-                        <span>Type</span>
-                        { payload.itemList.total_count > 0 && payload.current_sort.order === 'asc'&& (
-                              <FaArrowDown
-                                title="Click to sort in descending order"
-                                data-testid="type-icon"
-                                className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'type' ? 'text-pink-500': 'text-gray-300'}`}
-                              />
-                        )}
-                        { payload.itemList.total_count > 0 && payload.current_sort.order === 'desc' && (
-                             <FaArrowUp
-                             title="Click to sort in ascending order"
-                             data-testid="type-icon"
-                             className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'type' ? 'text-pink-500': 'text-gray-300'}`}
-                             />
-                        )}
-                    </div>
+                        <div onClick={(e) => handleSort(e, 'tax', 'number')} data-testid="tax-col" className="flex justify-start space-x-1 cursor-pointer">
+                            <span>Tax</span>
+                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'asc'&& (
+                                <FaArrowDown
+                                    title="Click to sort in descending order"
+                                    data-testid="tax-icon"
+                                    className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
+                                />
+                            )}
+                            { payload.itemList.total_count > 0 && payload.current_sort.order === 'desc' && (
+                                <FaArrowUp
+                                title="Click to sort in ascending order"
+                                data-testid="tax-icon"
+                                className={`mt-1.5 w-3 h-3 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
+                                />
+                            )}
+                        </div>
                     </th>
                     <th scope="col" className="p-4">
-                    <span className="sr-only">Edit</span>
+                       <span className="sr-only">Edit</span>
                     </th>
                 </tr>
                 </thead>
@@ -131,26 +116,17 @@ const Table = ({payload}: any) => {
                             data-testid="result-column"
                             className="hover:bg-gray-100"
                         >
-                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap text-left">
-                            {((payload.page * payload.per_page) - payload.per_page) + (i+1)}
-                            </td>
-                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap text-left">
-                            {item.id}
-                            </td>
-                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap text-left">
-                                <a
-                                    href={item.avatar_url}
-                                    target="__black"
-                                    className="text-pink-500 hover:text-pink-700 hover:underline"
-                                >
-                                    {item.avatar_url}
-                                </a>
-                            </td>
                             <td className="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
-                            {item.login}
+                            {item.name}
                             </td>
                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap text-left">
-                            {item.type}
+                            {item.net}
+                            </td>
+                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap text-left">
+                            {item.tax}
+                            </td>
+                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap text-left">
+                            {item.gross}
                             </td>
                             <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                             <a
@@ -171,5 +147,5 @@ const Table = ({payload}: any) => {
     )
 }
 
-export default Table;
+export default ItemListTable;
  

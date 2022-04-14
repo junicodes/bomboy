@@ -5,8 +5,6 @@ import { RootState } from "../store";
 
 
 export interface ItemListPayloadState {
-  total_count: number,
-  incomplete_results: boolean,
   items: object[] | null
 }
 
@@ -34,7 +32,7 @@ export const initialState = {
   loading: [],
   per_page: 9,
   page: 1,
-  current_sort: {key: 'login', order: 'asc', type: 'object'}
+  current_sort: {key: 'name', order: 'asc', type: 'object'}
 } as ItemListState;
 
 
@@ -74,7 +72,6 @@ export const itemListSlice = createSlice({
         //Sort payload with selected column by item
         action.payload.data.items.sort(sortObjectItem(state.current_sort.key, state.current_sort.order, state.current_sort.type));
         state.itemList = action.payload.data
-        state.page = action.payload.page;
       };
 
     });

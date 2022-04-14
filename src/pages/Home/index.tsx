@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import CreateItem from "../../components/CreateItem";
 import Overview from "../../components/Overview";
+import ItemList from "../../components/ItemList";
 // import Search from "../../components/Search";
 
 const Home = () => {
@@ -35,6 +36,7 @@ const Home = () => {
         </section>
         <section>
            {/* table component to show list */}
+           <ItemList />
         </section>
       </div>
       <Footer />
