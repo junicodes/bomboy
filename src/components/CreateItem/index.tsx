@@ -8,7 +8,6 @@ const CreateItem = () => {
     const taxPercent: number = 16;
 
     const [value, setValue] = useState({
-        id: v4(),
         name: '',
         tax: '',
         net: '',
@@ -51,7 +50,6 @@ const CreateItem = () => {
         });
     }
     const handleReset = () => setValue({
-        id: '',
         name: '',
         tax: '',
         net: '',
@@ -65,15 +63,17 @@ const CreateItem = () => {
 
     const handleAddItem  = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
+
         if(value.name === '') {
             return false;
         }
         if(value.net === '') {
             return false;
         }
-        console.log("in here")
-
-        dispatch(setItemList([...itemList.itemList.items, value]));
+        //add key to the payload
+        const newVal = {...value, ...{id: v4()}}
+        
+        dispatch(setItemList([...itemList.itemList.items, newVal]));
     }
 
     return (
