@@ -24,13 +24,13 @@ const Home = () => {
             heroTextAuthor="Ben Carson"
         />
       <div className={`${styles.body} px-20 pt-20`}>
-        <section className="flex justify-between items-center mb-20">
+        <section className="flex justify-between mb-20">
             {/* form component to create pay */}
             <div className="w-1/2">
               <CreateItem />
             </div>
             {/* overview components */}
-            <div className="w-1/2">
+            <div className="w-1/2 p-10">
               <Overview />
             </div>
         </section>
