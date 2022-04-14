@@ -150,14 +150,14 @@ const ItemListTable = ({payload, onHandleDeleteItem, onHandleStartItem }: any) =
                                     <MdCancel
                                         title="Delete Item"
                                         data-testid="delete-icon"
-                                        className={`mt-1.5 w-4 h-4 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
+                                        className={`mt-1.5 w-4 h-4 cursor-pointer text-gray-300`}
                                     />
                                 </div>
                                 <div onClick={(e) => onHandleStartItem(e, item.id)}>
                                     <FcRating
                                         title="Delete Item"
                                         data-testid="delete-icon"
-                                        className={`mt-1.5 w-4 h-4 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
+                                        className={`mt-1.5 w-4 h-4 cursor-pointer text-gray-300`}
                                     />
                                 </div>
                             </td>
