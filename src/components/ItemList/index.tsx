@@ -37,7 +37,12 @@ const ItemList = () => {
         <div data-testid="item-list-component">
            {
                 (itemList?.itemList?.items?.length > 0) ? (
-                    <ItemListTable payload={itemList} onHandleDeleteItem={handleDeleteItem} onHandleStartItem={handleStarItem} />
+                   <div>
+                        <div>
+                            
+                        </div>
+                        <ItemListTable payload={itemList} onHandleDeleteItem={handleDeleteItem} onHandleStartItem={handleStarItem} />
+                   </div>
                 ) :  (
                     <p className='text-center'>No Item List found, please referesh</p>
                 )

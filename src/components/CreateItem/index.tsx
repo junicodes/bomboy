@@ -134,14 +134,16 @@ const CreateItem = () => {
                     <button
                     type="submit"
                     onClick={handleReset}
-                    className="text-gray-400 bg-white border-gray-400 border focus:ring-4 h-10 rounded-sm text-lg w-20 px-5 text-center"
+                    className="text-gray-400 bg-white  border focus:ring-4 h-10 rounded-sm text-lg w-20 px-5 text-center"
+                    style={{borderColor: '#aaaaaa', color: "#aaaaaa"}}
                     >
                      Reset
                     </button>
                     <button
                     onClick={handleAddItem}
                     type="submit"
-                    className="text-white bg-gray-400 focus:ring-4 h-10 rounded-sm text-lg w-20 px-5 text-center"
+                    className="text-white focus:ring-4 h-10 rounded-sm text-lg w-20 px-5 text-center"
+                    style={{background: '#aaaaaa'}}
                     >
                      Add
                     </button>

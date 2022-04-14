@@ -10,7 +10,6 @@ import { sortObjectItem } from '../../../helpers/supportFunctions';
 
 
 const ItemListTable = ({payload, onHandleDeleteItem, onHandleStartItem }: any) => {
-    console.log(payload, "infac")
     //hook
     const dispatch = useAppDispatch();
 
