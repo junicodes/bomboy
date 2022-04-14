@@ -1,29 +1,84 @@
 import { useState } from "react";
-
-
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxhook'
+import { ItemListState, selectItemList, setItemList } from "../../react-wrapper/redux/slices/itemListSlice";
+import { v4 } from "uuid"
 
 const CreateItem = () => {
      //State
+    const taxPercent: number = 16;
+
     const [value, setValue] = useState({
+        id: v4(),
         name: '',
+        tax: '',
         net: '',
         gross: 0,
     })
+
+
+    const grossCaculate = (net: number) => {
+        if(net > 0) {
+            const calTaxPercent = taxPercent/100;
+
+            let gross = (net)/(1-calTaxPercent)
+            console.log(gross)
+
+            //get the task
+            const tax = Number(gross) - net;
+
+            setValue({
+                ...value,
+                ...{
+                    net: net.toString(),
+                    tax: tax.toString(),
+                    gross: Number(gross)
+                }
+            });
+        }
+    }
+
     //handler Function
     const handleValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        if(e.target.name === 'net') {
+            //Calculate Gross Salary
+            return grossCaculate(Number(e.target.value));
+        }
+        
         setValue({
             ...value,
             [e.target.name]: e.target.value
         });
     }
+    const handleReset = () => setValue({
+        id: '',
+        name: '',
+        tax: '',
+        net: '',
+        gross: 0
+    });
 
-    const handleAddItem  = async (e: React.FormEvent<HTMLFormElement>) => {
+    //Hooks
+    const itemList = useAppSelector<ItemListState>(selectItemList);
+    const dispatch = useAppDispatch();
+
+
+    const handleAddItem  = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        if(value.name === '') {
+            return false;
+        }
+        if(value.net === '') {
+            return false;
+        }
         console.log("in here")
+
+        dispatch(setItemList([...itemList.itemList.items, value]));
     }
 
     return (
         <div data-testid="create-item-component" className="flex flex-col item-center h-full">
-            <form className="w-full h-4/6 animate__animated animate__fadeIn" onSubmit={(e) => handleAddItem(e)}>
+            <form className="w-full h-4/6 animate__animated animate__fadeIn">
                 <div className="mb-6">
                     <label
                         htmlFor="name"
@@ -58,34 +113,34 @@ const CreateItem = () => {
                         onChange={(e) => handleValChange(e)}
                     />
                 </div>
-                <div className="flex flex-row jusitfy-end items-center space-x-2 my-4">
+                <div className="flex flex-row justify-end items-center space-x-10 my-4">
                     <div>
                         <p>Tax</p>
                         <p>
-                        {
-                            new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(16)
-                        }    
-                        </p>%
+                         { taxPercent },00&nbsp;%
+                        </p>
                     </div>
                     <div>
                         <p>Gross</p>
                         <p>
                         {
                             new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(Number(value.gross))
-                        }
-                        </p>%
+                        }&nbsp;
+                        </p>
                     </div>
                </div>
-               <div className="flex flex-row jusitfy-end">
+               <div className="flex flex-row justify-end items-center space-x-4 ">
                     <button
                     type="submit"
-                    className="text-white bg-green-500 focus:ring-4 h-14 font-medium rounded-lg text-lg w-full sm:w-2/6 px-5 py-2.5 text-center"
+                    onClick={handleReset}
+                    className="text-gray-400 bg-white border-gray-400 border focus:ring-4 h-10 rounded-sm text-lg w-20 px-5 text-center"
                     >
                      Reset
                     </button>
                     <button
+                    onClick={handleAddItem}
                     type="submit"
-                    className="text-white bg-red-600 focus:ring-4 h-14 font-medium rounded-lg text-lg w-full sm:w-2/6 px-5 py-2.5 text-center"
+                    className="text-white bg-gray-400 focus:ring-4 h-10 rounded-sm text-lg w-20 px-5 text-center"
                     >
                      Add
                     </button>

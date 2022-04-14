@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../../hooks/reduxhook'
 import { sortObjectItem } from '../../../helpers/supportFunctions';
 
 const ItemListTable = ({payload}: any) => {
-
+    console.log(payload, "infac")
     //hook
     const dispatch = useAppDispatch();
 

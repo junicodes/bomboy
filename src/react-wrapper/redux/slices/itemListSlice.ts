@@ -10,7 +10,7 @@ export interface ItemListPayloadState {
 
 export interface ItemListState {
   itemList: {
-    items: object[] | null
+    items: any
   },
   loading: string[]
   per_page: number,
@@ -52,7 +52,6 @@ export const itemListSlice = createSlice({
     setCurrentSort: (state, action: PayloadAction<{ key: string, order: string, type: string}>) => {
       state.current_sort = action.payload;
     },
-
 
     resetItemList: (state) => {
       //Format the itemlist state to default state

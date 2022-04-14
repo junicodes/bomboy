@@ -8,7 +8,7 @@ import { GET_ITEM_LIST_DATA_ASYNC_ACTION } from "../../react-wrapper/redux/actio
 const ItemList = () => {
 
     //Hooks
-    const userList = useAppSelector<ItemListState>(selectItemList);
+    const itemList = useAppSelector<ItemListState>(selectItemList);
     const dispatch = useAppDispatch();
 
     //Effect hooks
@@ -24,7 +24,7 @@ const ItemList = () => {
 
     return (
         <div data-testid="item-list-component">
-            <ItemListTable payload={userList} />
+            <ItemListTable payload={itemList} />
         </div>
     )
 }
