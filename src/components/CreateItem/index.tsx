@@ -49,19 +49,22 @@ const CreateItem = () => {
             [e.target.name]: e.target.value
         });
     }
-    const handleReset = () => setValue({
-        name: '',
-        tax: '',
-        net: '',
-        gross: 0
-    });
+    const handleReset = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        setValue({
+            name: '',
+            tax: '',
+            net: '',
+            gross: 0
+        })
+    }
 
     //Hooks
     const itemList = useAppSelector<ItemListState>(selectItemList);
     const dispatch = useAppDispatch();
 
 
-    const handleAddItem  = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleAddItem  = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
         if(value.name === '') {
@@ -91,7 +94,6 @@ const CreateItem = () => {
                         name="name"
                         className="bg-gray-50 border border-gray-100 focus:outline focus:outline-2 focus:outline-slate-400 text-gray-900 text-md rounded-md h-14 block w-full p-2.5"
                         placeholder="Enter a login to continue"
-                        required={true}
                         value={value.name}
                         onChange={(e) => handleValChange(e)}
                     />
@@ -108,7 +110,6 @@ const CreateItem = () => {
                         name="net"
                         className="bg-gray-50 border border-gray-100 focus:outline focus:outline-2 focus:outline-slate-400 text-gray-900 text-md rounded-md h-14 block w-full p-2.5"
                         placeholder="Enter a login to continue"
-                        required={true}
                         value={value.net}
                         onChange={(e) => handleValChange(e)}
                     />

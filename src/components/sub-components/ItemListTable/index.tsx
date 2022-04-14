@@ -7,7 +7,9 @@ import { setItemList, setCurrentSort } from '../../../react-wrapper/redux/slices
 import { useAppDispatch } from '../../../hooks/reduxhook'
 import { sortObjectItem } from '../../../helpers/supportFunctions';
 
-const ItemListTable = ({payload}: any) => {
+
+
+const ItemListTable = ({payload, onHandleDeleteItem, onHandleStartItem }: any) => {
     console.log(payload, "infac")
     //hook
     const dispatch = useAppDispatch();
@@ -145,28 +147,20 @@ const ItemListTable = ({payload}: any) => {
                             }
                             </td>
                             <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap flex items-center space-x-2">
-                            <a
-                                href={item.html_url}
-                                target="__black"
-                                className="text-pink-500 hover:text-pink-700 hover:underline"
-                            >
-                                <MdCancel
-                                    title="Delete Item"
-                                    data-testid="delete-icon"
-                                    className={`mt-1.5 w-4 h-4 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
-                                />
-                            </a>
-                            <a
-                                href={item.html_url}
-                                target="__black"
-                                className="text-pink-500 hover:text-pink-700 hover:underline"
-                            >
-                                <FcRating
-                                    title="Delete Item"
-                                    data-testid="delete-icon"
-                                    className={`mt-1.5 w-4 h-4 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
-                                />
-                            </a>
+                                <div onClick={(e) => onHandleDeleteItem(e, item.id)}>
+                                    <MdCancel
+                                        title="Delete Item"
+                                        data-testid="delete-icon"
+                                        className={`mt-1.5 w-4 h-4 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
+                                    />
+                                </div>
+                                <div onClick={(e) => onHandleStartItem(e, item.id)}>
+                                    <FcRating
+                                        title="Delete Item"
+                                        data-testid="delete-icon"
+                                        className={`mt-1.5 w-4 h-4 cursor-pointer ${payload.current_sort.key === 'tax' ? 'text-pink-500': 'text-gray-300'}`}
+                                    />
+                                </div>
                             </td>
                         </tr>
                     ))
