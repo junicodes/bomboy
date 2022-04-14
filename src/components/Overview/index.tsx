@@ -66,7 +66,7 @@ const Overview = () => {
                 Total Item
             </p>
             <p className="">
-                {itemList.itemList.items.length}
+                {itemList?.itemList?.items?.length}
             </p>
           </div>
     

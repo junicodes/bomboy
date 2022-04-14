@@ -24,7 +24,13 @@ const ItemList = () => {
 
     return (
         <div data-testid="item-list-component">
-            <ItemListTable payload={itemList} />
+           {
+                (itemList?.itemList?.items?.length > 0) ? (
+                    <ItemListTable payload={itemList} />
+                ) :  (
+                    <p className='text-center'>No Item List found, please referesh</p>
+                )
+           }
         </div>
     )
 }
