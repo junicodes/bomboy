@@ -85,9 +85,9 @@ const CreateItem = () => {
                 <div className="mb-6">
                     <label
                         htmlFor="name"
-                        className="block mb-2 text-xl font-medium text-gray-900 text-left"
+                        className="block mb-2 text-xl font-medium text-gray-500 text-left"
                     >
-                        Name
+                        Name *
                     </label>
                     <input
                         type="text"
@@ -101,9 +101,9 @@ const CreateItem = () => {
                 <div className="mb-6">
                     <label
                         htmlFor="net"
-                        className="block mb-2 text-xl font-medium text-gray-900 text-left"
+                        className="block mb-2 text-xl font-medium text-gray-500 text-left"
                     >
-                        Net
+                        Net *
                     </label>
                     <input
                         type="text"
