@@ -49,3 +49,4 @@ The Alasco Team
 To start project 
 Run yarn install 
 Run yarn start
+# bomboy
